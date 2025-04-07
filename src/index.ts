@@ -1,6 +1,7 @@
 // src/index.ts
 import express from 'express';
 import path from 'path';
+import fs from 'fs';
 import cardRoutes from './routes/cardRoutes';
 
 const app = express();
@@ -20,6 +21,24 @@ app.use('/api', cardRoutes);
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
+
+// images 파일
+app.get('/animals/:filename', (req, res) => {
+    const filename = req.params.filename;
+    const filePath = path.join(__dirname, '..', 'public', 'animals', filename);
+
+    if (fs.existsSync(filePath)) {
+        res.sendFile(filePath);
+    } else {
+        res.status(404)
+    }
+});
+
+app.get('/animals', (req, res) => {
+    const animals = fs.readdirSync(path.join(__dirname, '..', 'public', 'animals'));
+    res.json(animals);
+});
+
 
 app.listen(port, () => {
     console.log(`서버가 http://localhost:${port} 에서 실행 중입니다.`);

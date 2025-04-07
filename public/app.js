@@ -4,7 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = document.getElementById('close-modal');
     const form = document.getElementById('card-form');
     const deleteButton = document.getElementById('delete-card');
+    const imageSelect = document.getElementById('image-select'); // select 요소를 가져옵니다.
     let currentCardId = null;
+
+    // 동물 사진 목록 불러오기
+    fetch('/animals')
+        .then(response => response.json())
+        .then(images => {
+            images.forEach(image => {
+                const option = document.createElement('option');
+                option.value = image.replace('.jpg', '');
+                option.textContent = image.replace('.jpg', '');
+                imageSelect.appendChild(option);
+            });
+        })
+        .catch(error => console.error('이미지 로딩 중 오류 발생:', error));
 
     // 카드 목록 불러오기
     function loadCards() {
@@ -29,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             ${cardData.image ?
                                 `<div class="card-image-container">
-                                    <img src="${cardData.image.data}" alt="${cardData.name}">
+                                    <img src="/animals/${cardData.image}" alt="${cardData.name}">
                                 </div>` :
                                 '<div class="no-image">🖼️</div>'
                             }
@@ -86,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const maker = document.getElementById('maker').value;
         const name = document.getElementById('card-name').value;
         const features = document.getElementById('card-features').value;
-        const selectedImage = imageSelect.value;
+        const selectedImage = imageSelect.value; // 선택된 이미지 값 사용
 
         const cardData = {
             maker,
