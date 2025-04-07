@@ -1,0 +1,22 @@
+# node_modules 디렉토리 제외
+node_modules/
+
+# TypeScript 컴파일 결과물 (dist 폴더)
+dist/
+
+# 로그 파일 제외
+*.log
+
+# 환경 변수 파일 (예: .env)
+.env
+
+# npm 및 yarn 로그 파일 제외
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS 관련 불필요 파일 제외 (macOS)
+.DS_Store
+
+# 에디터 설정 파일 (예: VSCode)
+.vscode/
