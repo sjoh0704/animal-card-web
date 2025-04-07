@@ -36,12 +36,12 @@ const cards: (Card | null)[] = [
     { id: 22, maker: "정채연", name: "", features: "", image: null },
     { id: 23, maker: "지윤정", name: "", features: "", image: null },
     { id: 24, maker: "황채영", name: "", features: "", image: null },
-    { id: 25, maker: "없음", name: "", features: "", image: null },
-    { id: 26, maker: "없음", name: "", features: "", image: null },
-    { id: 27, maker: "없음", name: "", features: "", image: null },
-    { id: 28, maker: "없음", name: "", features: "", image: null },
-    { id: 29, maker: "없음", name: "", features: "", image: null },
-    { id: 30, maker: "없음", name: "", features: "", image: null },
+    { id: 25, maker: "", name: "", features: "", image: null },
+    { id: 26, maker: "", name: "", features: "", image: null },
+    { id: 27, maker: "", name: "", features: "", image: null },
+    { id: 28, maker: "", name: "", features: "", image: null },
+    { id: 29, maker: "", name: "", features: "", image: null },
+    { id: 30, maker: "", name: "", features: "", image: null },
 ];
 
 export const getCards = (req: Request, res: Response): void => {
