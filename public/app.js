@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         cardDiv.innerHTML = `
                             <div class="card-header">
-                                <span class="card-number">#${i + 1}</span>
+                                <span class="card-number">#${i}</span>
                                 <span class="card-maker">${cardData.maker}</span>
                             </div>
                             ${cardData.image ?
@@ -65,8 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('maker').value = data ? data.maker : '';
         document.getElementById('card-name').value = data ? data.name : '';
         document.getElementById('card-features').value = data ? data.features : '';
-        // 파일 입력 초기화
-        document.getElementById('card-image').value = '';
         modal.style.display = 'block';
     }
 
@@ -88,18 +86,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const maker = document.getElementById('maker').value;
         const name = document.getElementById('card-name').value;
         const features = document.getElementById('card-features').value;
-        const imageInput = document.getElementById('card-image');
-        const formData = new FormData();
+        const selectedImage = imageSelect.value;
 
-        formData.append('maker', maker);
-        formData.append('name', name);
-        formData.append('features', features);
-        if (imageInput.files[0]) {
-            formData.append('image', imageInput.files[0]);
-        }
+        const cardData = {
+            maker,
+            name,
+            features,
+            image: selectedImage
+        };
+
         fetch('/api/cards/' + id, {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(cardData)
         })
             .then(response => response.json())
             .then(() => {

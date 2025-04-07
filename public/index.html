@@ -12,8 +12,8 @@
 
 <body>
     <header>
-        <h1 class="mainTitle">🐾 동물 카드 컬렉션</h1>
-        <p class="subtitle">나만의 특별한 동물 카드를 만들어보세요!</p>
+        <h1 class="mainTitle">🐾 여러 가지 동물을 관찰해 볼까요?</h1>
+        <p class="subtitle">동물을 관찰하고 관찰한 특징을 친구들과 공유해 봅시다!</p>
     </header>
 
     <main>
@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     <label for="maker">만든이</label>
-                    <input type="text" id="maker" required placeholder="예: 신지원 선생님">
+                    <input type="text" id="maker" readonly>
                 </div>
 
                 <div class="form-group">
@@ -46,11 +46,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="card-image" class="file-upload-label">
-                        📷 동물 사진 업로드
-                        <input type="file" id="card-image" accept="image/*">
-                    </label>
-                    <small class="file-hint">JPG, PNG 파일을 선택해주세요</small>
+                    <label for="card-image">동물 사진 선택</label>
+                    <select id="card-image">
+                        <div id="card-image-options"></div>
+                    </select>
+                    <small class="file-hint">원하는 동물 사진을 선택해주세요</small>
                 </div>
 
                 <div class="button-group">
