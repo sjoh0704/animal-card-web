@@ -12,24 +12,49 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(cards => {
                 grid.innerHTML = '';
-                // 32칸(3 x 10) 
                 for (let i = 0; i < 30; i++) {
                     const cardData = cards[i];
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'card';
                     cardDiv.dataset.id = i;
+
                     if (cardData) {
+                        // 카드에 hover 효과를 위한 클래스 추가
+                        cardDiv.classList.add('filled-card');
+
                         cardDiv.innerHTML = `
-                <strong>${cardData.name}</strong>
-                ${cardData.image ? `<img src="${cardData.image.data}" alt="Animal Image">` : ''}
-                <p>${cardData.features}</p>
-              `;
+                            <div class="card-header">
+                                <span class="card-number">#${i + 1}</span>
+                                <span class="card-maker">${cardData.maker}</span>
+                            </div>
+                            ${cardData.image ?
+                                `<div class="card-image-container">
+                                    <img src="${cardData.image.data}" alt="${cardData.name}">
+                                </div>` :
+                                '<div class="no-image">🖼️</div>'
+                            }
+                            <div class="card-body">
+                                <h3 class="animal-name">${cardData.name}</h3>
+                                <p class="animal-features">${cardData.features}</p>
+                            </div>
+                        `;
                     } else {
-                        cardDiv.innerHTML = `<em>빈 카드</em>`;
+                        cardDiv.classList.add('empty-card');
+                        cardDiv.innerHTML = `
+                            <div class="empty-card-content">
+                                <span class="plus-icon">+</span>
+                                <p>새로운 동물 카드를<br>추가해보세요!</p>
+                            </div>
+                        `;
                     }
+
                     cardDiv.addEventListener('click', () => openModal(i, cardData));
                     grid.appendChild(cardDiv);
                 }
+            })
+            .catch(error => {
+                console.error('카드 로딩 중 오류 발생:', error);
+                grid.innerHTML = '<div class="error-message">카드를 불러오는 중 문제가 발생했습니다. 새로고침을 시도해주세요.</div>';
             });
     }
 
@@ -37,6 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function openModal(id, data) {
         currentCardId = id;
         document.getElementById('card-id').value = id;
+        document.getElementById('maker').value = data ? data.maker : '';
         document.getElementById('card-name').value = data ? data.name : '';
         document.getElementById('card-features').value = data ? data.features : '';
         // 파일 입력 초기화
@@ -59,10 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const id = document.getElementById('card-id').value;
+        const maker = document.getElementById('maker').value;
         const name = document.getElementById('card-name').value;
         const features = document.getElementById('card-features').value;
         const imageInput = document.getElementById('card-image');
         const formData = new FormData();
+
+        formData.append('maker', maker);
         formData.append('name', name);
         formData.append('features', features);
         if (imageInput.files[0]) {

@@ -9,6 +9,7 @@ interface ImageData {
 
 export interface Card {
     id: number;
+    maker: string;
     name: string;
     features: string;
     image?: ImageData;
@@ -37,7 +38,7 @@ export const createOrUpdateCard = (req: MulterRequest, res: Response): void => {
         res.status(400).json({ message: '카드 id는 0부터 31 사이여야 합니다.' });
         return;
     }
-    const { name, features } = req.body;
+    const { maker, name, features } = req.body;
     let image;
     if (req.file) {
         image = {
@@ -45,7 +46,7 @@ export const createOrUpdateCard = (req: MulterRequest, res: Response): void => {
             mimetype: req.file.mimetype
         };
     }
-    const updatedCard: Card = { id, name, features, image };
+    const updatedCard: Card = { id, maker, name, features, image };
     cards[id] = updatedCard;
     res.json(updatedCard);
 };
