@@ -23,9 +23,9 @@ app.get('/', (req, res) => {
 });
 
 // images 파일
-app.get('/animals/:filename', (req, res) => {
+app.get('/images/:filename', (req, res) => {
     const filename = req.params.filename;
-    const filePath = path.join(__dirname, '..', 'public', 'animals', filename);
+    const filePath = path.join(__dirname, '..', 'public', 'images', filename);
 
     if (fs.existsSync(filePath)) {
         res.sendFile(filePath);
@@ -34,8 +34,8 @@ app.get('/animals/:filename', (req, res) => {
     }
 });
 
-app.get('/animals', (req, res) => {
-    const animals = fs.readdirSync(path.join(__dirname, '..', 'public', 'animals'));
+app.get('/images', (req, res) => {
+    const animals = fs.readdirSync(path.join(__dirname, '..', 'public', 'images'));
     res.json(animals);
 });
 

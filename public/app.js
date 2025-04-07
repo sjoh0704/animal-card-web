@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentCardId = null;
 
     // 동물 사진 목록 불러오기
-    fetch('/animals')
+    fetch('/images')
         .then(response => response.json())
         .then(images => {
             images.forEach(image => {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             ${cardData.image ?
                                 `<div class="card-image-container">
-                                    <img src="/animals/${cardData.image}" alt="${cardData.name}">
+                                    <img src="/images/${cardData.image}" alt="${cardData.name}">
                                 </div>` :
                                 '<div class="no-image">🖼️</div>'
                             }
