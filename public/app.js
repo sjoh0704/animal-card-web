@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(cards => {
                 grid.innerHTML = '';
-                // 32칸(4x8) 생성
-                for (let i = 0; i < 32; i++) {
+                // 32칸(3 x 10) 
+                for (let i = 0; i < 30; i++) {
                     const cardData = cards[i];
                     const cardDiv = document.createElement('div');
                     cardDiv.className = 'card';

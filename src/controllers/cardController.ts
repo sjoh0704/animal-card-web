@@ -18,8 +18,8 @@ interface MulterRequest extends Request {
     file?: Express.Multer.File;
 }
 
-// 0~31번 카드(총 32개)를 위한 배열. 초기엔 null로 처리
-const cards: (Card | null)[] = new Array(32).fill(null);
+// 0~31번 카드(총 30개)를 위한 배열. 초기엔 null로 처리
+const cards: (Card | null)[] = new Array(30).fill(null);
 
 export const getCards = (req: Request, res: Response): void => {
     const result = cards.map(card => {
@@ -33,7 +33,7 @@ export const getCards = (req: Request, res: Response): void => {
 
 export const createOrUpdateCard = (req: MulterRequest, res: Response): void => {
     const id = parseInt(req.params.id, 10);
-    if (id < 0 || id >= 32) {
+    if (id < 0 || id >= 30) {
         res.status(400).json({ message: '카드 id는 0부터 31 사이여야 합니다.' });
         return;
     }
@@ -52,7 +52,7 @@ export const createOrUpdateCard = (req: MulterRequest, res: Response): void => {
 
 export const deleteCard = (req: Request, res: Response): void => {
     const id = parseInt(req.params.id, 10);
-    if (id < 0 || id >= 32) {
+    if (id < 0 || id >= 30) {
         res.status(400).json({ message: '카드 id는 0부터 31 사이여야 합니다.' });
         return;
     }
